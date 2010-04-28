@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, Intro!</string>
     <string name="app_name">Android Sensor Recorder</string>
+    <string name="intro_title">Select Sensors</string>
+    <string name="intro_select_sensors">Choose one or more available sensors from the list below and press \'Record\'.</string>
+    <string name="record">Record</string>
 </resources>
