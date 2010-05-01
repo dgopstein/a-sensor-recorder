@@ -51,9 +51,10 @@ public class Intro extends Activity {
       private ArrayList<Integer> convertCheckedItemPositions(SparseBooleanArray ids) {
         ArrayList<Integer> checked = new ArrayList<Integer>();
         for (int i = 0; i < ids.size(); ++i) {
-          if (ids.get(i)) 
-            checked.add(i);
+          if (ids.valueAt(i)) 
+            checked.add(ids.keyAt(i));
         }
+        Collections.sort(checked);
         return checked;
       }
       
