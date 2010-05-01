@@ -56,7 +56,7 @@ public class SensorListAdapter extends BaseAdapter {
       holder.check = (CheckBox) convertView.findViewById(R.id.sensor_check);
       holder.name = (TextView) convertView.findViewById(R.id.sensor_name);
       holder.description = (TextView) convertView.findViewById(R.id.sensor_description);
-      holder.check.setClickable(false);
+      
       
       convertView.setTag(holder);
     } else {
