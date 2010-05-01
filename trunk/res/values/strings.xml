@@ -4,4 +4,16 @@
     <string name="intro_title">Select Sensors</string>
     <string name="intro_select_sensors">Choose one or more available sensors from the list below and press \'Record\'.</string>
     <string name="record">Record</string>
+    
+    <string name="sensor_type_accelerometer">Accelerometer Sensor</string>
+    <string name="sensor_type_gyroscope">Gyroscope Sensor</string>
+    <string name="sensor_type_light">Light Sensor</string>
+    <string name="sensor_type_magnetic_field">Magnetic Field Sensor</string>
+    <string name="sensor_type_orientation">Orientation Sensor</string>
+    <string name="sensor_type_pressure">Pressure Sensor</string>
+    <string name="sensor_type_proximity">Proximity Sensor</string>
+    <string name="sensor_type_temperature">Temperature Sensor</string>
+    
+    <string name="no_values">No values yet received.</string>
+    
 </resources>

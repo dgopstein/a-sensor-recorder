@@ -1,9 +1,13 @@
-<TableRow xmlns:android="http://schemas.android.com/apk/res/android">
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+  android:padding="6dip">
+  
   <TextView 
-    android:id="@+id/sensor_column_name"
+    android:id="@+id/sensor_type"
+    android:gravity="left"
   />
   
   <TextView 
     android:id="@+id/sensor_column_values"
+    android:gravity="right"
   />
 </TableRow>

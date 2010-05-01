@@ -46,11 +46,11 @@ public class Record extends Activity {
     for(int si : sensor_ids) {
       Sensor s = _sensors.get(si);
       TableRow row = (TableRow)_inflater.inflate(R.layout.sensor_row, _table, false);
-      TextView sensor_name = (TextView)row.findViewById(R.id.sensor_column_name);
+      TextView sensor_type = (TextView)row.findViewById(R.id.sensor_type);
       TextView sensor_values = (TextView)row.findViewById(R.id.sensor_column_values);
       
-      sensor_name.setText(s.getName());
-      sensor_values.setText("no values yet");
+      sensor_type.setText(this.getString(SensorType.mapToStringID(s.getType())));
+      sensor_values.setText(this.getString(R.string.no_values));
       
       GenericSensorEventListener gsel = new GenericSensorEventListener(sensor_values);
       _sm.registerListener(gsel, s, SensorManager.SENSOR_DELAY_UI);

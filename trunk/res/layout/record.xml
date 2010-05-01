@@ -3,6 +3,7 @@
     android:id="@+id/table_of_values"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:stretchColumns="2"
     android:padding = "6dip"
     >
     

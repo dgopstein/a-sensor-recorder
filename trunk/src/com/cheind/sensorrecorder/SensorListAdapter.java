@@ -54,8 +54,8 @@ public class SensorListAdapter extends BaseAdapter {
       
       holder = new ViewHolder();
       holder.check = (CheckBox) convertView.findViewById(R.id.sensor_check);
-      holder.name = (TextView) convertView.findViewById(R.id.sensor_name);
-      holder.description = (TextView) convertView.findViewById(R.id.sensor_description);
+      holder.type = (TextView) convertView.findViewById(R.id.sensor_type);
+      holder.details = (TextView) convertView.findViewById(R.id.sensor_details);
       
       
       convertView.setTag(holder);
@@ -65,17 +65,17 @@ public class SensorListAdapter extends BaseAdapter {
     
     ListView lv = (ListView) group;
     holder.sensor = _sensors.get(position);
-    holder.name.setText(holder.sensor.getName());
-    holder.description.setText("dummy text");
-    holder.check.setChecked(lv.getCheckedItemPositions().valueAt(position));
+    holder.type.setText(SensorType.mapToStringID(holder.sensor.getType()));
+    holder.details.setText(holder.sensor.getName());
+    holder.check.setChecked(lv.getCheckedItemPositions().get(position));
     
     return convertView;
   }
   
   static class ViewHolder {
     CheckBox check;
-    TextView name;
-    TextView description;
+    TextView type;
+    TextView details;
     Sensor sensor;
   } 
 
