@@ -9,13 +9,25 @@ import android.widget.TextView;
 
 public class GenericSensorEventListener implements SensorEventListener {
   
-  private TextView _tv;
-  private DecimalFormat _format_two;
-  static final String VISUAL_DELIMITER = ", ";
+  private DecimalFormat _fmt;
+  private String _delimiter;
 
-  public GenericSensorEventListener(TextView tv) {
-    _tv = tv;
-    _format_two = new DecimalFormat("0.00");
+  public GenericSensorEventListener(DecimalFormat fmt, String delimiter) {
+    _fmt = fmt;
+    _delimiter = delimiter;  
+  }
+  
+  protected String formatValues(float[] values) {
+    StringBuilder sb = new StringBuilder();
+      
+    for (int i = 0; i < values.length; ++i) {
+      float v = values[i];
+      sb.append(_fmt.format(v));
+      if (i < (values.length - 1))
+        sb.append(_delimiter);
+    }
+    
+    return sb.toString();
   }
 
   @Override
@@ -24,16 +36,5 @@ public class GenericSensorEventListener implements SensorEventListener {
 
   @Override
   public void onSensorChanged(SensorEvent ev) {
-    StringBuilder sb = new StringBuilder();
-    float values[] = ev.values;
-      
-    for (int i = 0; i < values.length; ++i) {
-      float v = values[i];
-      sb.append(_format_two.format(v));
-      if (i < (values.length - 1))
-        sb.append(VISUAL_DELIMITER);
-    }
-    
-   _tv.setText(sb.toString());
   }
 }

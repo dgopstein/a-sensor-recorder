@@ -55,7 +55,7 @@ public class Record extends Activity {
       sensor_type.setText(this.getString(SensorType.mapToStringID(s.getType())));
       sensor_values.setText(this.getString(R.string.no_values));
       
-      GenericSensorEventListener gsel = new GenericSensorEventListener(sensor_values);
+      GenericSensorEventListener gsel = new UISensorEventListener(sensor_values);
       _sm.registerListener(gsel, s, SensorManager.SENSOR_DELAY_UI);
       _table.addView(row);
       _listeners.add(gsel);
