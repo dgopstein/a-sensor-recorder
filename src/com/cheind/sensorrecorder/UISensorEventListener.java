@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 public class UISensorEventListener extends GenericSensorEventListener {
   
-  static final String VISUAL_DELIMITER = ", ";
+  static final String VISUAL_DELIMITER = "| ";
   
   private TextView _tv;
   
