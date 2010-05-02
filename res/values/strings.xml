@@ -16,4 +16,6 @@
     
     <string name="no_values">No values yet received.</string>
     
+    <string name="sd_directory">sensor_recorder</string>
+    
 </resources>

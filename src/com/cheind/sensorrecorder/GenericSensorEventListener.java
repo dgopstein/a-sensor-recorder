@@ -5,7 +5,6 @@ import java.text.DecimalFormat;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
-import android.widget.TextView;
 
 public class GenericSensorEventListener implements SensorEventListener {
   
@@ -29,7 +28,9 @@ public class GenericSensorEventListener implements SensorEventListener {
     
     return sb.toString();
   }
-
+    
+  public void onSensorListenerUnregistered() {}
+  
   @Override
   public void onAccuracyChanged(Sensor arg0, int arg1) {  
   }
