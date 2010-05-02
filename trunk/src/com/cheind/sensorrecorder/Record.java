@@ -36,13 +36,16 @@ public class Record extends Activity {
   public void onResume() {
     super.onResume();
     
+    // Make sure to clean up layout from a previous on-resume iteration
     _table.removeAllViews();
     _listeners.clear();
     
     // Intent sent by Intro containing the selected
     // sensors as a list of ids
     Intent intent = this.getIntent();
-    ArrayList<Integer> sensor_ids = intent.getIntegerArrayListExtra("selected.sensors");
+    ArrayList<Integer> sensor_ids = intent.getIntegerArrayListExtra(Intro.TAG_CHECKED_SENSOR_IDS);
+    
+    // Incrementally build layout and register sensor event listeners
     for(int si : sensor_ids) {
       Sensor s = _sensors.get(si);
       TableRow row = (TableRow)_inflater.inflate(R.layout.sensor_row, _table, false);
@@ -62,6 +65,7 @@ public class Record extends Activity {
   @Override
   public void onStop() {
     super.onStop();
+    // Clean-up event listeners
     for(GenericSensorEventListener l : _listeners) {
       _sm.unregisterListener(l);
     }

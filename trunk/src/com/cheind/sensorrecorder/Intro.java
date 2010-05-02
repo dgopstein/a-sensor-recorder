@@ -1,6 +1,8 @@
 package com.cheind.sensorrecorder;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -16,6 +18,11 @@ import android.widget.Button;
 import android.widget.ListView;
 
 public class Intro extends Activity {
+  
+  public static final String TAG_CHECKED_SENSOR_IDS ="selected.sensors";
+  
+  private ListView _sensor_list;
+  private List<Sensor> _sensors;
     
   /** Called when the activity is first created. */
   @Override
@@ -23,39 +30,29 @@ public class Intro extends Activity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.intro);
     
-    final ListView sensor_list = (ListView) findViewById(R.id.sensor_list);
-    sensor_list.setItemsCanFocus(false);
+    _sensor_list = (ListView) findViewById(R.id.sensor_list);
+    _sensor_list.setItemsCanFocus(false);
     SensorManager sm = (SensorManager) getSystemService(SENSOR_SERVICE);
-    List<Sensor> sensors = sm.getSensorList(Sensor.TYPE_ALL);
-    sensor_list.setAdapter(new SensorListAdapter(this, sensors));
+    _sensors = sm.getSensorList(Sensor.TYPE_ALL);
+    _sensor_list.setAdapter(new SensorListAdapter(this, _sensors));
     
     Button record = (Button) findViewById(R.id.record);
     record.setOnClickListener(new OnClickListener() {
       
       @Override
       public void onClick(View arg0) {
-        SparseBooleanArray ids = sensor_list.getCheckedItemPositions();
-        ArrayList<Integer> checked_ids = this.convertCheckedItemPositions(ids);
+        SparseBooleanArray ids = _sensor_list.getCheckedItemPositions();
+        ArrayList<Integer> checked_ids = Intro.convertCheckedItemPositions(ids);
 
         if (checked_ids.size() == 0) {
           showSelectOneAlert(arg0);
         } else {
           Intent i = new Intent();
           i.setClass(Intro.this.getApplicationContext(), Record.class);
-          i.putExtra("selected.sensors", checked_ids);
+          i.putExtra(TAG_CHECKED_SENSOR_IDS, checked_ids);
           Intro.this.startActivity(i);
         }
         
-      }
-
-      private ArrayList<Integer> convertCheckedItemPositions(SparseBooleanArray ids) {
-        ArrayList<Integer> checked = new ArrayList<Integer>();
-        for (int i = 0; i < ids.size(); ++i) {
-          if (ids.valueAt(i)) 
-            checked.add(ids.keyAt(i));
-        }
-        Collections.sort(checked);
-        return checked;
       }
       
       private void showSelectOneAlert(View v) {
@@ -73,5 +70,15 @@ public class Intro extends Activity {
         .show();
       }
     });
+  }
+  
+  private static ArrayList<Integer> convertCheckedItemPositions(SparseBooleanArray ids) {
+    ArrayList<Integer> checked = new ArrayList<Integer>();
+    for (int i = 0; i < ids.size(); ++i) {
+      if (ids.valueAt(i)) 
+        checked.add(ids.keyAt(i));
+    }
+    Collections.sort(checked);
+    return checked;
   }
 }
