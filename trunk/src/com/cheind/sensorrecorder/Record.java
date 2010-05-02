@@ -1,5 +1,6 @@
 package com.cheind.sensorrecorder;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -38,7 +40,6 @@ public class Record extends Activity {
     
     // Make sure to clean up layout from a previous on-resume iteration
     _table.removeAllViews();
-    _listeners.clear();
     
     // Intent sent by Intro containing the selected
     // sensors as a list of ids
@@ -55,10 +56,16 @@ public class Record extends Activity {
       sensor_type.setText(this.getString(SensorType.mapToStringID(s.getType())));
       sensor_values.setText(this.getString(R.string.no_values));
       
-      GenericSensorEventListener gsel = new UISensorEventListener(sensor_values);
+      GenericSensorEventListener gsel = new UISensorEventListener(this, sensor_values);
       _sm.registerListener(gsel, s, SensorManager.SENSOR_DELAY_UI);
       _table.addView(row);
       _listeners.add(gsel);
+      
+      try {
+        gsel = new FileSensorEventListener(this, s.getType());
+        _sm.registerListener(gsel, s, SensorManager.SENSOR_DELAY_NORMAL);
+        _listeners.add(gsel);
+      } catch (IOException e) {}
     }
   }
   
@@ -68,7 +75,9 @@ public class Record extends Activity {
     // Clean-up event listeners
     for(GenericSensorEventListener l : _listeners) {
       _sm.unregisterListener(l);
+      l.onSensorListenerUnregistered();
     }
+    _listeners.clear();
   }
 
 }
